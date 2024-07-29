@@ -19,9 +19,26 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+const formSchema=z.object({
+    title:z.string().min(1,{
+        message:"title is required",
+    }),
+});
+
 const CreatePage = () => {
+    const form=useForm<z.infer<typeof formSchema>>({
+        resolver:zodResolver(formSchema),
+        defaultValues:{
+            title:""
+        },
+    });
+    const {isSubmitting,isValid}=form.formState;
+
+    const onSubmit=(values:z.infer<typeof formSchema>)=>{
+        console.log(values)
+    }
     return ( 
-        <div>
+        <div className="max-w-5xl mx-auto">
             Create Page!
         </div>
      );
